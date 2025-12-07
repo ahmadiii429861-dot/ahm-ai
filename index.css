@@ -1,0 +1,867 @@
+/* Reset and base styles */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #f0f2f5;
+    overflow: hidden;
+}
+
+#root {
+    height: 100vh;
+    width: 100vw;
+}
+
+/* App layout */
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-color: #84ff002e;
+}
+.sidebar {
+  width: 260px;
+  background-color: #202123;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-right: 1px solid #333;
+  flex-shrink: 0;
+}
+.sidebar-header {
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 0.75rem;
+  margin: -1rem -1rem 1rem -1rem;
+  background-color: #343541;
+  text-align: center;
+  cursor: pointer;
+}
+.new-chat-btn {
+  padding: 0.75rem;
+  border: 1px solid #555;
+  background-color: transparent;
+  color: white;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+  margin-bottom: 1rem;
+}
+.new-chat-btn:hover {
+  background-color: #343541;
+}
+.sessions-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.session-item {
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  position: relative; /* For context menu positioning */
+}
+.session-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-grow: 1;
+    overflow: hidden;
+}
+.public-icon {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+.archived-icon {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    color: #f4b400; /* Yellowish for archive */
+}
+.session-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.session-item:hover {
+  background-color: #343541;
+}
+.session-item.active {
+  background-color: #4A90E2;
+}
+.session-edit-input {
+  width: 100%;
+  background-color: #343541;
+  border: 1px solid #555;
+  color: white;
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  outline: none;
+}
+.sidebar-footer {
+  border-top: 1px solid #333;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.settings-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.settings-btn:hover {
+    background-color: #343541;
+    color: white;
+}
+.user-info-section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    background-color: #343541;
+}
+.user-info-section:hover {
+    background-color: #444;
+}
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #555; /* Fallback for default avatar */
+    border: 1px solid #777;
+    position: relative;
+    flex-shrink: 0;
+    display: flex; /* For centering initial */
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: white;
+}
+.user-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.username-display {
+    font-size: 1rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+.status-text {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+.verified-icon {
+    color: #66bb6a; /* Green checkmark */
+    font-size: 0.9em;
+}
+.pro-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background-color: gold;
+    color: #333;
+    font-size: 0.6em;
+    font-weight: bold;
+    padding: 2px 4px;
+    border-radius: 4px;
+    z-index: 10;
+    line-height: 1;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-grow: 1;
+  background-color: #fff;
+}
+.public-view-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: #fff;
+}
+.chat-header {
+  background-color: #4A90E2;
+  color: white;
+  padding: 1rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0; /* Prevent header from shrinking */
+}
+.chat-header-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+.header-btn {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.header-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* New Flexbox containers for chat area and code panel */
+.main-content-area {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden; /* Important for child scrollbars */
+}
+
+.chat-view-area {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden; /* Allow internal scrolling */
+}
+
+.messages-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.message {
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  max-width: 80%;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+.message.user {
+  background-color: #4A90E2;
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.message.model {
+  background-color: #f0f2f5;
+  color: #333;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.message.model.api-key-error {
+  background-color: #ffebee; /* Light red */
+  color: #d32f2f; /* Dark red */
+  border: 1px solid #ef9a9a;
+  font-weight: 500;
+}
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  padding: 0.75rem 1rem;
+}
+.loading-indicator span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ccc;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+.loading-indicator span:nth-of-type(1) { animation-delay: -0.32s; }
+.loading-indicator span:nth-of-type(2) { animation-delay: -0.16s; }
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
+}
+.input-form-wrapper {
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
+    flex-shrink: 0; /* Prevent input from shrinking */
+}
+.input-form {
+  display: flex;
+  max-width: 800px;
+  margin: 0 auto;
+  gap: 0.5rem;
+}
+.input-form input {
+  flex-grow: 1;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.input-form input:focus {
+  border-color: #4A90E2;
+}
+.input-form button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background-color: #4A90E2;
+  color: white;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.input-form button:hover {
+  background-color: #357ABD;
+}
+.input-form button:disabled {
+  background-color: #a0c3e8;
+}
+
+/* Code Panel Styles */
+.code-panel {
+    width: 400px; /* Fixed width for the panel */
+    background-color: #282c34; /* Dark background like a code editor */
+    color: #abb2bf;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #333;
+    flex-shrink: 0; /* Prevent panel from shrinking */
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+}
+/* If you want to make it truly collapsible, you'd add a class for collapsed state
+   e.g. .code-panel.collapsed { width: 0; } and toggle that class.
+   For now, we're just rendering it conditionally based on isCodePanelVisible
+*/
+
+.code-panel-header {
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-bottom: 1px solid #3d424b;
+    text-align: center;
+    flex-shrink: 0;
+}
+.code-panel-header h3 {
+    margin: 0;
+    color: white;
+}
+
+.code-panel .file-tabs {
+    display: flex;
+    gap: 0.25rem;
+    margin: 1rem;
+    border-bottom: 1px solid #3d424b;
+    padding-bottom: 0.5rem;
+    justify-content: flex-start; /* Align tabs to start */
+    flex-shrink: 0;
+}
+.code-panel .file-tabs button {
+    background-color: #3d424b;
+    border: 1px solid #555;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #abb2bf;
+    transition: background-color 0.2s, color 0.2s;
+}
+.code-panel .file-tabs button.active {
+    background-color: #4A90E2;
+    color: white;
+    border-color: #4A90E2;
+}
+.code-panel .file-tabs button:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+.code-panel .code-display {
+    background-color: #282c34; /* Same as panel background */
+    border: none;
+    padding: 1rem;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-x: auto;
+    overflow-y: auto;
+    font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    flex-grow: 1; /* Allow code display to take remaining height */
+    margin: 0;
+}
+
+
+/* Modal overlay (for Settings, Share, Login, Profile, User List) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+/* Removed .modal-content.code-view-modal as it's no longer used */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+/* Styling for 'Close' text button */
+.close-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem; /* Adjusted font size for text */
+    color: #333; /* Default text color */
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    line-height: 1; /* Ensure text sits correctly */
+    text-align: center;
+}
+.close-button:hover {
+    background-color: #e0e0e0;
+    color: #000;
+    border-color: #b0b0b0;
+}
+
+/* Removed .file-tabs and .code-display styles specific to the modal */
+
+
+.modal-content h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+}
+.setting-item, .setting-item-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.setting-item-toggle {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.setting-item label, .setting-item-toggle > label {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+.setting-description {
+    font-size: 0.85rem;
+    color: #666;
+    margin: -0.25rem 0 0.25rem 0;
+}
+.status-message {
+    font-size: 0.85rem;
+    margin: -0.25rem 0 0.25rem 0;
+    padding-left: 0.25rem;
+    border-radius: 4px;
+}
+.status-message.login-status {
+    color: #3f51b5; /* Blue for login */
+}
+.status-message.register-status {
+    color: #4CAF50; /* Green for register */
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #4A90E2;
+}
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+.slider.round {
+  border-radius: 28px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+input:disabled + .slider {
+  background-color: #b0b0b0; /* Dim background for disabled */
+  cursor: not-allowed;
+}
+input:disabled + .slider:before {
+    background-color: #e0e0e0;
+}
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+.modal-actions button {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.modal-actions button:last-child {
+    background-color: #4A90E2;
+    color: white;
+    border-color: #4A90E2;
+}
+.share-link-wrapper {
+    display: flex;
+    gap: 0.5rem;
+}
+.share-link-wrapper input {
+    flex-grow: 1;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: #f0f2f5;
+}
+.share-link-wrapper button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #4A90E2;
+    background-color: #4A90E2;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Profile specific styles */
+.profile-avatar-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    cursor: pointer;
+}
+.profile-preview-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    background-color: #f0f2f5; /* Fallback for no image */
+    display: flex; /* For centering initial */
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 3rem;
+    color: #777;
+    background-size: cover; /* Ensure background image covers */
+    background-position: center;
+}
+.profile-avatar-upload input[type="file"] {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    opacity: 0;
+    cursor: pointer;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.profile-pro-badge {
+    position: absolute;
+    top: 75px; /* Adjust based on avatar size */
+    left: 50%;
+    transform: translateX(15px); /* Adjust to position correctly */
+}
+.logout-button {
+    background-color: #d93025 !important;
+    color: white !important;
+    border-color: #d93025 !important;
+}
+
+/* User List Modal Specific Styles */
+.user-list-modal {
+    max-width: 500px;
+}
+.users-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.user-list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+.user-list-item .user-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+}
+.user-list-item .username-display {
+    flex-grow: 1;
+}
+.login-as-btn {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #4A90E2;
+    background-color: #4A90E2;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.9rem;
+}
+.login-as-btn:hover {
+    background-color: #357ABD;
+}
+.current-user-tag {
+    background-color: #66bb6a;
+    color: white;
+    padding: 0.3em 0.6em;
+    border-radius: 4px;
+    font-size: 0.75em;
+    font-weight: bold;
+}
+.error-message {
+    color: #d93025;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Kebab menu styles */
+.kebab-menu-button {
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    font-size: 1.2rem;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.2s, background-color 0.2s;
+    flex-shrink: 0;
+}
+.session-item:hover .kebab-menu-button,
+.session-item.active .kebab-menu-button {
+    opacity: 1;
+}
+.kebab-menu-button:hover {
+    color: white;
+}
+
+.context-menu {
+    position: fixed;
+    background-color: #fff;
+    border: 1px solid #883131;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1001;
+    min-width: 150px;
+    overflow: hidden;
+}
+.context-menu-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #333;
+    transition: background-color 0.2s;
+    display: block; /* Ensure full width clickable area */
+    text-align: left;
+    border: none;
+    background: none;
+    width: 100%;
+}
+.context-menu-item:hover {
+    background-color: #f0f2f5;
+}
+.context-menu-item.delete {
+    color: #d93025;
+}
+
+.archived-toggle-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #343541;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    margin-top: 0.5rem;
+}
+.archived-toggle-btn:hover {
+    background-color: #444;
+}
+.archived-toggle-btn.active {
+    background-color: #555;
+    font-weight: bold;
+}
+
+/* New styles for UserListModal - All Active Chats */
+.user-list-toggle-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+}
+
+.user-list-toggle-section .toggle-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.active-chat-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f0f7ff; /* Light blue background */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.active-chat-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.active-chat-item .user-avatar {
+    width: 45px;
+    height: 45px;
+    font-size: 1.6rem;
+    border: 2px solid #4A90E2; /* Blue border to highlight active */
+}
+
+.active-chat-item .chat-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.active-chat-item .chat-title {
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.1em;
+}
+
+.active-chat-item .last-message-snippet {
+    font-size: 0.85em;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.active-chat-item .username-display {
+    font-size: 0.9em;
+    color: #4A90E2;
+    font-weight: normal;
+}
+
+.active-chat-item .login-as-btn {
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+}
